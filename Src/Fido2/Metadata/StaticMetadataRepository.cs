@@ -252,22 +252,6 @@ namespace Fido2NetLib
             };
             _entries.Add(new Guid(msftWhfbHardwareVbs.AaGuid), msftWhfbHardwareVbs);
 
-            var solostatement = await DownloadStringAsync("https://raw.githubusercontent.com/solokeys/solo/master/metadata/Solo-FIDO2-CTAP2-Authenticator.json");
-            var soloMetadataStatement = JsonConvert.DeserializeObject<MetadataStatement>(solostatement);
-            var soloKeysSolo = new MetadataTOCPayloadEntry
-            {
-                AaGuid = soloMetadataStatement.AaGuid,
-                Url = "https://raw.githubusercontent.com/solokeys/solo/master/metadata/Solo-FIDO2-CTAP2-Authenticator.json",
-                StatusReports = new StatusReport[]
-                {
-                    new StatusReport
-                    {
-                        Status = AuthenticatorStatus.NOT_FIDO_CERTIFIED
-                    }
-                },
-                MetadataStatement = soloMetadataStatement
-            };
-            _entries.Add(new Guid(soloKeysSolo.AaGuid), soloKeysSolo);
 
             foreach (var entry in _entries)
             {
